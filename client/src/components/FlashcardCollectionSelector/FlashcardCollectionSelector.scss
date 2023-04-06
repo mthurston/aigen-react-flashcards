@@ -1,0 +1,14 @@
+.flashcard-collection-selector {
+    min-width: 180px; // Ensure a minimum width for the selector
+  
+    // Style the input label and select field
+    .MuiInputLabel-root,
+    .MuiSelect-root {
+      color: #fff; // Set the text color to white
+    }
+  
+    // Style the dropdown menu items
+    .MuiMenuItem-root {
+      color: #000; // Set the menu item text color to black
+    }
+  }

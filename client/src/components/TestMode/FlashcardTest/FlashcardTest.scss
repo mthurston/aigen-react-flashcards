@@ -1,0 +1,11 @@
+.flashcard-test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; // Space between elements
+
+  .MuiCard-root {
+    width: 100%;
+    max-width: 600px;
+  }
+}

@@ -1,0 +1,35 @@
+.collapsible-navigation {
+  width: 250px; // Set the drawer width
+  flex-shrink: 0;
+
+  .MuiDrawer-paper {
+    width: 250px; // Set the drawer paper width to match the container width
+    box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.1); // Add a shadow for a bit of depth
+  }
+  .drawer-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px; // Add padding around the selector
+    position: sticky; // Make the header sticky
+    top: 0; // Set the sticky position to the top
+    background-color: inherit; // Match the drawer background color
+    z-index: 1; // Ensure the header appears above the list items
+  }
+
+  .MuiListItem-root {
+    // Style the individual navigation items, e.g., font size, padding, and hover effects
+    &:hover {
+      background-color: rgba(
+        70,
+        130,
+        140,
+        0.1
+      ); // Change background color on hover
+    }
+  }
+
+  .MuiDivider-root {
+    margin: 8px 0; // Add some margin around the divider
+  }
+}

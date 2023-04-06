@@ -1,0 +1,24 @@
+// Light and dark mode
+:root {
+  // Light mode
+  --primary-color: #64b3c1;
+  --emphasis-border-color: #46828c;
+  --info-hyperlink-color: #18f29a;
+  --secondary-color: #f45855;
+  --warning-error-color: #bf0056;
+
+  // Dark mode (adjust colors as needed)
+  --primary-color-dark: #64b3c1;
+  --emphasis-border-color-dark: #46828c;
+  --info-hyperlink-color-dark: #18f29a;
+  --secondary-color-dark: #f45855;
+  --warning-error-color-dark: #bf0056;
+}
+
+[data-theme="dark"] {
+  --primary-color: var(--primary-color-dark);
+  --emphasis-border-color: var(--emphasis-border-color-dark);
+  --info-hyperlink-color: var(--info-hyperlink-color-dark);
+  --secondary-color: var(--secondary-color-dark);
+  --warning-error-color: var(--warning-error-color-dark);
+}

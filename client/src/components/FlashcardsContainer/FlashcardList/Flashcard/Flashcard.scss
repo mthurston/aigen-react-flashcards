@@ -1,0 +1,16 @@
+.flashcard {
+    position: relative;
+    cursor: pointer;
+  
+    .flashcard-content {
+      min-height: 100px; // Set a minimum height for the flashcard content
+    }
+  
+    .flip-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px; // Reduce padding around the flip button
+    }
+  }
+  
