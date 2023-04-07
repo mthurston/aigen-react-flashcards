@@ -1,25 +1,34 @@
 import React, { ReactNode } from "react";
 import {
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import { Add } from "@mui/icons-material";
 
 import "./FlashcardCollectionSelector.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { addCollection, setSelectedCollection } from "../../store/actions";
 
-interface FlashcardCollectionSelectorProps {
-  collections: string[];
-  selectedCollection: string;
-  onCollectionChange: (collection: string) => void;
-}
+const FlashcardCollectionSelector: React.FC = () => {
+  const dispatch = useDispatch();
+  const collections = useSelector((state: any) => state.collections);
+  const selectedCollection = useSelector(
+    (state: any) => state.selectedCollection
+  );
 
-const FlashcardCollectionSelector: React.FC<
-  FlashcardCollectionSelectorProps
-> = ({ collections, selectedCollection, onCollectionChange }) => {
-  const handleChange = (event: SelectChangeEvent<string>, child: ReactNode) => {
-    onCollectionChange(event.target.value as string);
+  const handleChange = (event: SelectChangeEvent) => {
+    dispatch(setSelectedCollection(event.target.value));
+  };
+
+  const handleAddCollection = () => {
+    const newCollectionName = prompt("Enter the new collection name:");
+    if (newCollectionName) {
+      dispatch(addCollection(newCollectionName));
+    }
   };
 
   return (
@@ -27,13 +36,26 @@ const FlashcardCollectionSelector: React.FC<
       <InputLabel id="flashcard-collection-label">Collection</InputLabel>
       <Select
         labelId="flashcard-collection-label"
-        value={selectedCollection}
+        value={selectedCollection || ""}
         onChange={handleChange}
         label="Collection"
       >
-        {collections.map((collection) => (
-          <MenuItem key={collection} value={collection}>
-            {collection}
+        <MenuItem
+          key={"add-new"}
+          value={"add-new"}
+          onClick={handleAddCollection}
+        >
+          <IconButton
+            onClick={handleAddCollection}
+            className="add-collection-button"
+          >
+            <Add />
+          </IconButton>{" "}
+          Add New
+        </MenuItem>
+        {collections.map((collection: any) => (
+          <MenuItem key={collection.name} value={collection.name}>
+            {collection.name}
           </MenuItem>
         ))}
       </Select>

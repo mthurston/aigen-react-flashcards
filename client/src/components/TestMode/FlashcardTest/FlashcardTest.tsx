@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./FlashcardTest.scss";
-
-interface FlashcardData {
-  title?: string;
-  question: string;
-  answer: string;
-}
+import { Flashcard } from "../../../models/flashcards/types";
 
 interface FlashcardTestProps {
-  flashcard: FlashcardData;
+  flashcard: Flashcard;
   onNextCard: () => void;
 }
 
@@ -31,16 +26,29 @@ const FlashcardTest: React.FC<FlashcardTestProps> = ({
   return (
     <div className="flashcard-test">
       <Card>
-        <CardContent>
-          <Typography variant="h5" component="div">
-            {showAnswer ? flashcard.answer : flashcard.question}
-          </Typography>
-          <Button onClick={handleShowAnswer}>
-            {showAnswer ? "Show Question" : "Show Answer"}
-          </Button>
-          <Button variant="contained" color="primary" onClick={handleNext}>
-            Next Card
-          </Button>
+        <CardContent className="flashcard">
+          {showAnswer ? (
+            <Typography variant="body1" component="div" className="flashcard-back">
+              {flashcard.answer}
+            </Typography>
+          ) : (
+            <Typography
+              variant="h5"
+              component="div"
+              className="flashcard-front"
+            >
+              {flashcard.question}
+            </Typography>
+          )}
+
+          <div className="flashcard-buttons">
+            <Button onClick={handleShowAnswer}>
+              {showAnswer ? "Back" : "Answer"}
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleNext}>
+              Next Card
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

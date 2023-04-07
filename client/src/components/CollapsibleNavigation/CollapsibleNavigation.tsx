@@ -1,42 +1,44 @@
-import React from "react";
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-  Divider,
-} from "@mui/material";
-import "./CollapsibleNavigation.scss";
+import React, { useState } from "react";
+import { IconButton, List, ListItem, ListItemText } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import FlashcardCollectionSelector from "../FlashcardCollectionSelector/FlashcardCollectionSelector";
+import "./CollapsibleNavigation.scss";
+
 import { NavigationItemClickArgs } from "../FlashCardCollectionArgs";
+import { Collection } from "../../models";
 
 interface CollapsibleNavigationProps {
-  onNavigationItemClick: (args: NavigationItemClickArgs) => void;
-  selectedNavigationItem?: string;
-  collections: string[];
+  onNavigationItemClick: (item: { itemName: string }) => void;
+  selectedNavigationItem: string;
   selectedCollection: string;
-  onCollectionChange: (collectionName: string) => void;
+  onCollectionChange: (collection: string) => void;
 }
 
 const CollapsibleNavigation: React.FC<CollapsibleNavigationProps> = ({
   onNavigationItemClick,
   selectedNavigationItem,
-  collections,
   selectedCollection,
   onCollectionChange,
 }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className="collapsible-navigation">
-      <div className="drawer-header">
-        <FlashcardCollectionSelector
-          collections={collections}
-          selectedCollection={selectedCollection}
-          onCollectionChange={onCollectionChange}
-        />
+      <div className="menu-bar">
+        <IconButton onClick={toggleMenu}>
+          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+        </IconButton>
+        <FlashcardCollectionSelector />
       </div>
-      <List>
+      <List
+        className={`menu-items ${isMenuOpen ? "open" : "closed"}`}
+        component="nav"
+      >
         {/* Flashcards container */}
         <ListItem
           button

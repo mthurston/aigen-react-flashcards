@@ -1,6 +1,23 @@
 .collapsible-navigation {
   width: 250px; // Set the drawer width
-  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #fff;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
 
   .MuiDrawer-paper {
     width: 250px; // Set the drawer paper width to match the container width

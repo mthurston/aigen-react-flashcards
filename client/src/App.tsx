@@ -14,6 +14,9 @@ import Settings from "./components/Settings/Settings";
 import TestMode from "./components/TestMode/TestMode";
 import "./App.scss";
 import { NavigationItemClickArgs } from "./components/FlashCardCollectionArgs";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "./store";
 
 const App: React.FC = () => {
   const [selectedNavItem, setSelectedNavItem] = useState<string>("questions");
@@ -36,26 +39,29 @@ const App: React.FC = () => {
   const isMobile = useMediaQuery(theme(mode).breakpoints.down("sm"));
 
   return (
-    <ThemeProvider theme={theme(mode)}>
-      <CssBaseline />
-      <Container maxWidth="lg">
-        <Box className="app-container">
-          <CollapsibleNavigation
-            onNavigationItemClick={handleNavigationItemClick}
-            selectedNavigationItem={selectedNavItem}
-            collections={["My Collection", "Other Collection"]}
-            selectedCollection={selectedCollection}
-            onCollectionChange={handleCollectionChange}
-          />
-          <Box className="main-content">
-            {selectedNavItem === "questions" && <FlashcardsContainer />}
-            {selectedNavItem === "settings" && <Settings />}
-            {selectedNavItem === "testMode" && <TestMode />}
-            {/* ... */}
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme(mode)}>
+          <CssBaseline />
+          <Container maxWidth="lg">
+            <Box className="app-container">
+              <CollapsibleNavigation
+                onNavigationItemClick={handleNavigationItemClick}
+                selectedNavigationItem={selectedNavItem}
+                selectedCollection={selectedCollection}
+                onCollectionChange={handleCollectionChange}
+              />
+              <Box className="main-content">
+                {selectedNavItem === "questions" && <FlashcardsContainer />}
+                {selectedNavItem === "settings" && <Settings />}
+                {selectedNavItem === "testMode" && <TestMode />}
+                {/* ... */}
+              </Box>
+            </Box>
+          </Container>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   );
 };
 

@@ -16,14 +16,10 @@ const FlashcardsContainer: React.FC = () => {
     },
   ]);
 
-  const handleAddFlashcard = (newFlashcard: any) => {
-    setFlashcards([...flashcards, newFlashcard]);
-  };
-
   return (
     <div className="flashcards-container">
-      <FlashcardCreator onCreate={handleAddFlashcard} />
-      <FlashcardList flashcards={flashcards} />
+      <FlashcardCreator />
+      <FlashcardList />
     </div>
   );
 };

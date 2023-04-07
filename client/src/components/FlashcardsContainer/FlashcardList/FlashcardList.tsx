@@ -2,22 +2,26 @@ import React from "react";
 import { Grid } from "@mui/material";
 import Flashcard from "./Flashcard/Flashcard";
 import "./FlashcardList.scss";
+import { Flashcard as FlashcardData } from "../../../models/flashcards/types";
+import { useSelector } from "react-redux";
 
-interface FlashcardData {
-  title?: string;
-  question: string;
-  answer: string;
-}
+const FlashcardList: React.FC = () => {
+  const selectedCollection = useSelector(
+    (state: any) => state.selectedCollection
+  );
+  const collections = useSelector((state: any) => state.collections);
 
-interface FlashcardListProps {
-  flashcards: FlashcardData[];
-}
+  const flashcards = React.useMemo(() => {
+    const collection = collections.find(
+      (col: any) => col.name === selectedCollection
+    );
+    return collection ? collection.flashcards : [];
+  }, [collections, selectedCollection]);
 
-const FlashcardList: React.FC<FlashcardListProps> = ({ flashcards }) => {
   return (
     <Grid container spacing={2} className="flashcard-list">
-      {flashcards.map((flashcard, index) => (
-        <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+      {flashcards.map((flashcard: FlashcardData, index: number) => (
+        <Grid key={index} item xs={12} sm={6} md={4} lg={4}>
           <Flashcard {...flashcard} />
         </Grid>
       ))}

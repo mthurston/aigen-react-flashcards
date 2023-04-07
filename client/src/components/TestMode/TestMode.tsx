@@ -21,7 +21,7 @@ const TestMode: React.FC = () => {
   };
 
   return (
-    <div className="test-mode">
+    <div className="flashcard-test-container">
       <FlashcardTest
         flashcard={flashcards[currentCardIndex]}
         onNextCard={handleNextCard}
