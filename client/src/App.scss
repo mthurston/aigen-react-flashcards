@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+
+.app-container {
+  width: calc(100% - 250px);
+  position: relative;
+  left: 250px;
+}

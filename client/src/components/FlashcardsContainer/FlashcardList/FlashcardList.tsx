@@ -15,7 +15,7 @@ const FlashcardList: React.FC = () => {
     const collection = collections.find(
       (col: any) => col.name === selectedCollection
     );
-    return collection ? collection.flashcards : [];
+    return collection?.flashcards ?? [];
   }, [collections, selectedCollection]);
 
   return (

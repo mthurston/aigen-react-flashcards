@@ -1,27 +1,15 @@
 import React, { useState } from "react";
-import { IconButton, List, ListItem, ListItemText } from "@mui/material";
+import { IconButton, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import FlashcardCollectionSelector from "../FlashcardCollectionSelector/FlashcardCollectionSelector";
 import "./CollapsibleNavigation.scss";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { NavigationItemClickArgs } from "../FlashCardCollectionArgs";
-import { Collection } from "../../models";
-
-interface CollapsibleNavigationProps {
-  onNavigationItemClick: (item: { itemName: string }) => void;
-  selectedNavigationItem: string;
-  selectedCollection: string;
-  onCollectionChange: (collection: string) => void;
-}
-
-const CollapsibleNavigation: React.FC<CollapsibleNavigationProps> = ({
-  onNavigationItemClick,
-  selectedNavigationItem,
-  selectedCollection,
-  onCollectionChange,
-}) => {
+const CollapsibleNavigation: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -40,29 +28,26 @@ const CollapsibleNavigation: React.FC<CollapsibleNavigationProps> = ({
         component="nav"
       >
         {/* Flashcards container */}
-        <ListItem
-          button
-          selected={selectedNavigationItem === "questions"}
-          onClick={() => onNavigationItemClick({ itemName: "questions" })}
+        <ListItemButton
+          selected={location.pathname.indexOf("questions") > 1}
+          onClick={() => navigate("questions")}
         >
           <ListItemText primary="Questions" />
-        </ListItem>
+        </ListItemButton>
         {/* Settings */}
-        <ListItem
-          button
-          selected={selectedNavigationItem === "settings"}
-          onClick={() => onNavigationItemClick({ itemName: "settings" })}
+        <ListItemButton
+          selected={location.pathname.indexOf("settings") > 1}
+          onClick={() => navigate("settings")}
         >
           <ListItemText primary="Settings" />
-        </ListItem>
+        </ListItemButton>
         {/* Test mode */}
-        <ListItem
-          button
-          selected={selectedNavigationItem === "testMode"}
-          onClick={() => onNavigationItemClick({ itemName: "testMode" })}
+        <ListItemButton
+          selected={location.pathname.indexOf("testMode") > 1}
+          onClick={() => navigate("testMode")}
         >
           <ListItemText primary="Quiz Flashcards" />
-        </ListItem>
+        </ListItemButton>
       </List>
     </div>
   );
